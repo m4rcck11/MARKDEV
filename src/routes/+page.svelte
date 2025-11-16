@@ -175,6 +175,7 @@
 	<nav class="side-menu">
 		<ul>
 			<li><a href="#work">Meu trabalho</a></li>
+			<li><a href="/curriculo.pdf" download="curriculo_marcelo.pdf">Baixar currículo</a></li>
 			<li><a href="#contact">Contato</a></li>
 		</ul>
 	</nav>
