@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marcelo — Portfólio</title>
+  <meta name="description" content="Portfólio de Marcelo de Barros Júnior — engenheiro de software e dados." />
+  <style>
+    :root{
+      --bg:#FFFFFF;
+      --text:#000000;
+      --muted:#505050;
+      --accent:#000000;
+      --accent2:#FFFFFF;
+      --container-max:1100px;
+      --radius:12px;
+      --gap:1.25rem;
+      --serif:'Editorial New', Georgia, serif;
+      --sans:'Editorial New', system-ui;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrapper{max-width:var(--container-max);margin:0 auto;padding:1.25rem}
+
+    /* Header with centered elliptical menu */
+    header{padding:1rem 0;position:relative}
+    .nav-ellipse{width:100%;display:flex;justify-content:center}
+    .nav-inner{width:100%;max-width:1100px;padding:.4rem .7rem;border-radius:200px;border:0.5px solid #000;display:flex;align-items:center;justify-content:center;transform:none;transform-origin:center;}
+    .nav-list{display:flex;gap:1.05rem;list-style:none;margin:0;padding:0;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:85%;}
+    .nav-list a{padding:.4rem .6rem;border-radius:999px}
+
+    /* Brand placed above or inside ellipse as small */
+    .brand-small{position:absolute;left:50%;transform:translateX(-50%);top:.5rem;font-weight:700;font-size:.95rem}
+
+    /* Hero single centered column */
+    .hero{padding:8rem 1.25rem 8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem}
+    .headline{font-family:var(--serif);font-weight:700;font-size:clamp(3rem,12vw,7.5rem);line-height:0.9;margin:0;letter-spacing:-0.02em}
+    .headline .dot{display:inline-block;transform:translateY(0.04em)}
+    .sub{font-size:1.05rem;color:var(--muted);max-width:60ch;margin-top:.5rem}
+
+    /* Keep the rest neat */
+    .projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);margin-top:2rem}
+    .card{background:#FFFFFF;border:1px solid #00000020;border-radius:var(--radius);padding:1rem;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+    .card img{width:100%;border-radius:8px;display:block}
+    .muted{color:var(--muted)}
+
+    @media(min-width:900px){
+      .projects{grid-template-columns:repeat(3,1fr)}
+    }
+  
+
+    /* Dynamic micro-interactions & reveal animations */
+    :root{--transition-fast:220ms;--transition-mid:420ms}
+
+    html{scroll-behavior:smooth}
+
+    .nav-inner{}
+    
+
+    .card{transform:translateY(8px);opacity:0;transition:transform var(--transition-mid) cubic-bezier(.2,.9,.2,1),opacity var(--transition-mid)}
+    .card.inview{transform:none;opacity:1}
+    .card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 12px 30px rgba(0,0,0,0.08)}
+
+    .headline{opacity:0;transform:translateY(8px);transition:opacity var(--transition-mid) ease,transform var(--transition-mid) ease}
+    .headline.inview{opacity:1;transform:none}
+
+    /* subtle hero underline pulse */
+    .headline::after{content:"";display:block;height:2px;width:36px;margin:1rem auto 0;background:var(--accent);opacity:.18;border-radius:2px;transform:scaleX(.8);transition:transform 900ms cubic-bezier(.2,.9,.2,1)}
+    .headline:hover::after{transform:scaleX(1.2);opacity:.28}
+
+    /* contact form microfeedback */
+    .toast{position:fixed;right:1rem;bottom:1rem;background:#111;color:#fff;padding:.8rem 1rem;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);transition:opacity 260ms,transform 260ms}
+    .toast.show{opacity:1;transform:none}
+
+    /* respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none!important;animation:none!important}
+    }
+
+  
+/* vertical stacked menu */
+.side-menu{position:absolute;top:1rem;right:1rem;z-index:9999}
+.side-menu ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0;line-height:0.9}
+.side-menu a{font-size:12px;font-weight:300;font-style:normal;letter-spacing:-0.02em;display:block;padding:2px 0}
+
+/* subtle hover for side menu + contact button */
+.side-menu a:hover{opacity:0.6;transition:opacity .2s ease}
+button[type="submit"]:hover{background:#222;transition:background .25s ease}
+</style>
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/editorial-new" />
+</head>
+<body>
+  <header>
+    
+    <nav class="side-menu"><ul><li><a href="#work">Meu trabalho</a></li><li><a href="#contact">Contato</a></li></ul></nav>
+</header>
+
+  <main>
+    <style>
+/* Vertical side labels inside hero */
+.hero-label-left,
+.hero-label-right {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%) rotate(-90deg);
+  font-size:10px;
+  letter-spacing:-0.04em;
+  opacity:0.8;
+  pointer-events:none;
+}
+.hero-label-left {
+  left:0.6rem;
+  font-weight:300;
+  font-style:normal;
+}
+.hero-label-right {
+  right:0.6rem;
+  font-weight:700;
+  font-style:normal;
+}
+</style>
+
+<section class="hero" aria-labelledby="hero-title">
+      <div class="hero-label-left">MARKDEV</div>
+<div class="hero-label-right">Based in São Paulo — Brazil.</div>
+<h1 id="hero-title" class="headline" style="font-style:normal; font-weight:700;"font-weight:700;">Marcelo<span class="dot">.</span></h1>
+      <p class="sub">Desenvolvedor. Based in São Paulo — Available Worldwide.</p>
+    </section>
+
+    <section id="work" class="wrapper" style="padding-block:1.25rem 2.5rem">
+      <h2 style="margin:0 0 1rem 0">Meu trabalho</h2>
+      <div class="projects" role="list">
+        <article class="card" role="listitem">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1400&auto=format&fit=crop" alt="Tesla Cognos" />
+          <h3 style="margin:.5rem 0 .25rem">Tesla Cognos</h3>
+          <p class="muted">Plataforma completa de estudo gamificado. Backend com Supabase (RLS, triggers, storage), app Flutter (mobile e web), painel administrativo e pipelines CI/CD.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1400&auto=format&fit=crop" alt="Tesla Concursos Website" />
+          <h3 style="margin:.5rem 0 .25rem">Tesla Concursos — Website</h3>
+          <p class="muted">Site institucional com WordPress, integrações de pagamentos, otimizações de performance, páginas personalizadas e suporte técnico contínuo.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop" alt="OpenAlex Portal" />
+          <h3 style="margin:.5rem 0 .25rem">OpenAlex Portal</h3>
+          <p class="muted">Portal de dados baseado em APIs OpenAlex. Pipelines Python, organização de datasets e infraestrutura em Google Cloud e Alibaba Cloud.</p>
+        </article>
+      </div>
+    </section>
+
+    
+
+    
+
+    <section id="contact" class="wrapper" style="padding-block:4rem 4rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+        <div>
+          <h2 style="font-size:68px;line-height:1;margin:0 0 1rem 0;font-weight:700">Vamos <span style="font-style:normal;font-weight:300">conversar?</span></h2>
+          <p style="font-size:1.1rem;margin-top:1rem">marcelo@markdev.dev</p>
+
+<div style="display:flex;gap:1rem;margin-top:1rem;align-items:center">
+  <img src="https://cdn-icons-png.flaticon.com/512/5968/5968973.png" alt="Mastodon" style="width:22px;height:22px" />
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" style="width:22px;height:22px" />
+  <img src="https://cdn-icons-png.flaticon.com/512/15466/15466128.png" alt="Bluesky" style="width:22px;height:22px" />
+</div>
+        </div>
+
+        <form style="display:flex;flex-direction:column;gap:1rem">
+          <input type="text" placeholder="Seu nome" style="padding:.8rem;border:1px solid #000;border-radius:8px;font-size:1rem" />
+          <input type="email" placeholder="Seu email" style="padding:.8rem;border:1px solid #000;border-radius:8px;font-size:1rem" />
+          <textarea placeholder="Sua mensagem" rows="5" style="padding:.8rem;border:1px solid #000;border-radius:8px;font-size:1rem"></textarea>
+          <button type="submit" style="padding:.9rem 1.2rem;border-radius:8px;border:1px solid #000;background:#000;color:#fff;font-weight:600;font-size:1rem;cursor:pointer">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+
+
+</main>
+
+  <script>
+    // Reveal on scroll for headline and cards
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) {
+        document.querySelectorAll('.card, .headline').forEach(el=>el.classList.add('inview'));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting) entry.target.classList.add('inview');
+        });
+      },{threshold:0.15});
+
+      document.querySelectorAll('.card').forEach(el=>io.observe(el));
+      const h = document.querySelector('.headline'); if(h) io.observe(h);
+
+      // lightweight form handler
+      const form = document.querySelector('form');
+      if(form){
+        form.addEventListener('submit', (e)=>{
+          e.preventDefault();
+          // fake send — show toast success
+          showToast('Mensagem enviada — obrigado!');
+          form.reset();
+        });
+      }
+
+      function showToast(msg){
+        let t = document.querySelector('.toast');
+        if(!t){ t = document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+        t.textContent = msg; t.classList.add('show');
+        clearTimeout(t._hide);
+        t._hide = setTimeout(()=>t.classList.remove('show'),3000);
+      }
+
+      // small parallax on mouse move for hero subtlety
+      const hero = document.querySelector('.hero');
+      if(hero){
+        hero.addEventListener('mousemove', (e)=>{
+          const r = hero.getBoundingClientRect();
+          const dx = (e.clientX - (r.left + r.width/2)) / r.width;
+          const dy = (e.clientY - (r.top + r.height/2)) / r.height;
+          hero.style.transform = `translate3d(${dx*6}px, ${dy*4}px, 0)`;
+        });
+        hero.addEventListener('mouseleave', ()=> hero.style.transform = '');
+      }
+
+      // Accessible focus styles for keyboard users
+      document.addEventListener('keyup', (e)=>{
+        if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
+      });
+    })();
+  </script>
+</body>
+</html>
