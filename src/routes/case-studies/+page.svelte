@@ -10,6 +10,42 @@
 
 	// Imagens em /static/images/
 
+	const caseStudies = [
+		{
+			image: '/images/altmetria.png',
+			alt: 'LibreMétricas - IBICT',
+			title: 'LibreMétricas',
+			description:
+				'API para o IBICT com DuckDB, middleware e Docker. Extração e métricas científicas com pipelines otimizados.',
+			tags: ['Vue', 'Alibaba Cloud', 'ECS', 'NGINX', 'Python', 'FastAPI', 'DuckDB', 'Docker'],
+			link: '/case-studies/libremetricas'
+		},
+		{
+			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
+			alt: 'Radar Político',
+			title: 'Radar Político',
+			description: 'Em breve',
+			tags: ['Em breve'],
+			link: '#'
+		},
+		{
+			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
+			alt: 'Projeto Open Alex',
+			title: 'Projeto Open Alex',
+			description: 'Em breve',
+			tags: ['Em breve'],
+			link: '#'
+		},
+		{
+			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
+			alt: 'Tesla COGNOS',
+			title: 'Tesla COGNOS',
+			description: 'Em breve',
+			tags: ['Em breve'],
+			link: '#'
+		}
+	];
+
 	const projects = [
 		{
 			image: '/images/teslacognos.png',
@@ -123,7 +159,7 @@
 		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		
 		if (prefersReduced) {
-			document.querySelectorAll('.card, .headline').forEach((el) => el.classList.add('inview'));
+			document.querySelectorAll('.card, .case-card, .headline').forEach((el) => el.classList.add('inview'));
 			return;
 		}
 
@@ -136,7 +172,7 @@
 			{ threshold: 0.15 }
 		);
 
-		document.querySelectorAll('.card').forEach((el) => io.observe(el));
+		document.querySelectorAll('.card, .case-card').forEach((el) => io.observe(el));
 		if (headlineElement) io.observe(headlineElement);
 
 		if (heroElement) {
@@ -159,7 +195,7 @@
 </script>
 
 <svelte:head>
-	<title>Marcelo — Portfólio</title>
+	<title>Marcelo — Estudos de Caso</title>
 	<meta name="description" content="Portfólio de Marcelo de Barros Júnior — engenheiro de software e dados." />
 	<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/editorial-new" />
 </svelte:head>
@@ -168,7 +204,7 @@
 	<nav class="side-menu">
 		<ul>
 			<li><a href="/"> Home </a></li>
-			<li><a href="/case-studies">Estudos de Caso</a></li>
+			<li><a href="#work">Estudos de Caso</a></li>
 			<li><a href="/curriculo.pdf" download="curriculo_marcelo.pdf">Baixar currículo</a></li>
 			<li><a href="#contact">Contato</a></li>
 		</ul>
@@ -180,39 +216,28 @@
 		<div class="hero-label-left">MARKDEV</div>
 		<div class="hero-label-right">Based in São Paulo — Brazil.</div>
 		<h1 id="hero-title" bind:this={headlineElement} class="headline" style="font-style: normal; font-weight: 700">
-			Marcelo<span class="dot">.</span>
+			Estudos de <span style="font-weight: 200; font-style: italic">Caso</span><span class="dot">.</span>
 		</h1>
-		<p class="sub">Desenvolvedor. Based in São Paulo — Available Worldwide.</p>
+		<p class="sub">Projetos reais que exigiram engenharia, estratégia e tomada de decisão. Cada case detalha o contexto, as escolhas técnicas e os resultados alcançados.</p>
 	</section>
 
-	<section id="work" class="wrapper" style="padding-block: 1.25rem 2.5rem">
-		<h2 style="margin: 0 0 1rem 0">Meu trabalho</h2>
+	<section id="case-studies" class="wrapper" style="padding-block: 1.25rem 2.5rem">
 		<div class="projects" role="list">
-			{#each projects as project}
-				<article class="card" role="listitem">
-					<img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
-					<h3 style="margin: 0.5rem 0 0.25rem">{project.title}</h3>
-					<p class="muted">{project.description}</p>
-					{#if project.tags && project.tags.length > 0}
-						<div class="tags">
-							{#each project.tags as tag}
-								<span class="tag">{tag}</span>
-							{/each}
-						</div>
-					{/if}
-				</article>
-			{/each}
-		</div>
-	</section>
-
-	<section id="webdesign" class="wrapper" style="padding-block: 1.25rem 2.5rem">
-		<h2 style="margin: 0 0 1rem 0">Webdesign e Sites</h2>
-		<div class="projects" role="list">
-			{#each websites as site}
-				<article class="card" role="listitem">
-					<img src={site.image} alt={site.alt} loading="lazy" decoding="async" />
-					<h3 style="margin: 0.5rem 0 0.25rem">{site.title}</h3>
-					<p class="muted">{site.description}</p>
+			{#each caseStudies as caseStudy}
+				<article class="case-card" role="listitem">
+					<img src={caseStudy.image} alt={caseStudy.alt} loading="lazy" decoding="async" />
+					<div class="case-content">
+						<h3 style="margin: 0.5rem 0 0.25rem">{caseStudy.title}</h3>
+						<p class="muted">{caseStudy.description}</p>
+						{#if caseStudy.tags && caseStudy.tags.length > 0}
+							<div class="tags">
+								{#each caseStudy.tags as tag}
+									<span class="tag">{tag}</span>
+								{/each}
+							</div>
+						{/if}
+						<a href={caseStudy.link} class="cta-button">Ver estudo de caso →</a>
+					</div>
 				</article>
 			{/each}
 		</div>
@@ -533,6 +558,60 @@
 		font-weight: 500;
 		letter-spacing: 0.02em;
 		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	/* Case Study Cards */
+	.case-card {
+		background: #ffffff;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 0;
+		overflow: hidden;
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+		transform: translateY(8px);
+		opacity: 0;
+		transition: opacity var(--transition-mid);
+		display: flex;
+		flex-direction: column;
+	}
+
+	:global(.case-card.inview) {
+		transform: none;
+		opacity: 1;
+	}
+
+	.case-card img {
+		width: 100%;
+		height: auto;
+		display: block;
+		object-fit: cover;
+	}
+
+	.case-content {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		flex-grow: 1;
+	}
+
+	.cta-button {
+		background: #000000;
+		color: #ffffff;
+		padding: 0.9rem 1.5rem;
+		border-radius: 0;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 0.95rem;
+		text-align: center;
+		transition: background 0.25s ease, transform 0.2s ease;
+		margin-top: 0.5rem;
+		display: inline-block;
+		align-self: flex-start;
+	}
+
+	.cta-button:hover {
+		background: #222222;
+		transform: translateY(-2px);
 	}
 
 	/* Contact form microfeedback */
