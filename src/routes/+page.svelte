@@ -424,9 +424,9 @@
 
 	/* Hero single centered column */
 	.hero {
-		min-height: 100vh;
+		min-height: 100svh; /* Use svh para mobile browsers */
 		width: 100%;
-		padding: 8rem 1.25rem 8rem;
+		padding: 6rem 1.25rem; /* Padding menor para telas pequenas */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -434,6 +434,14 @@
 		text-align: center;
 		gap: 1rem;
 		position: relative;
+		overflow: hidden; /* Previne scroll horizontal indesejado */
+	}
+
+	@media (min-width: 768px) {
+		.hero {
+			min-height: 100vh;
+			padding: 8rem 1.25rem;
+		}
 	}
 
 	/* Vertical side labels inside hero */
@@ -466,13 +474,15 @@
 	.headline {
 		font-family: var(--serif);
 		font-weight: 700;
-		font-size: clamp(20rem, 12vw, 7.5rem);
+		font-size: clamp(3.5rem, 14vw, 9rem); /* Ajustado: Min razoável, Max contido */
 		line-height: .9;
 		margin: 0;
 		letter-spacing: -0.02em;
 		opacity: 0;
 		transform: translateY(8px);
 		transition: opacity var(--transition-mid) ease, transform var(--transition-mid) ease;
+		max-width: 100%;
+		word-wrap: break-word; /* Garante que não estoure em telas muito pequenas */
 	}
 
 	:global(.headline.inview) {
@@ -729,14 +739,17 @@
 	}
 
 	/* Responsive */
+	@media (max-width: 900px) {
+		.hero-label-left,
+		.hero-label-right {
+			display: none; /* Esconde labels em tablets e mobile para evitar sobreposição */
+		}
+	}
+
 	@media (max-width: 600px) {
 		.hero {
 			padding: 4rem 1.25rem;
-		}
-
-		.hero-label-left,
-		.hero-label-right {
-			display: none;
+			justify-content: center;
 		}
 
 		.contact-grid {
