@@ -11,45 +11,45 @@
 	const projects = [
 		{
 			title: 'Tesla Cognos',
-			description: 'Plataforma EAD em Flutter com Supabase. Gamificação e UX.',
+			description: 'Plataforma EAD em Flutter com Supabase. Gamificação e UX para usuários do Tesla Concursos.',
 			tags: ['Flutter', 'BaaS', 'UI/UX'],
-			context: 'B2B',
-			year: '2024'
+			context: 'B2C, EAD',
+			year: '2023 - Atualmente'
 		},
 		{
-			title: 'InSySpo — Acoplamento',
+			title: 'InSySpo — Acoplamento de Autores Bibliográficos ',
 			description: 'Consulta de autores em base de terabytes. Google Cloud + BigQuery.',
 			tags: ['Flutter', 'BigQuery', 'Cloud'],
 			context: 'Interno',
-			year: '2023'
+			year: '2024'
 		},
 		{
-			title: 'LibreMétricas',
+			title: 'API LibreMétricas',
 			description: 'API para métricas científicas. DuckDB, Docker e FastAPI.',
 			tags: ['Python', 'DuckDB', 'Docker'],
 			context: 'Gov',
-			year: '2023'
+			year: '2025'
 		},
 		{
 			title: 'Dashboard IBICT',
 			description: 'Visualização de dados de pesquisadores via BigQuery.',
-			tags: ['Flutter', 'Data Viz', 'Parquet'],
-			context: 'Gov',
-			year: '2023'
+			tags: ['Flutter', 'Data Viz', 'MySQL'],
+			context: 'Interno',
+			year: '2025'
 		},
 		{
 			title: 'MultiOBS',
 			description: 'Iniciativa de democratização de dados ligada à Fapesp.',
 			tags: ['Data', 'Research'],
-			context: 'Research',
-			year: '2024'
+			context: 'Projeto',
+			year: '2026'
 		},
 		{
 			title: 'OpenAlex Portal',
 			description: 'Portal de acesso a dados científicos globais.',
-			tags: ['Vue', 'PostgreSQL', 'Alibaba'],
-			context: 'Research',
-			year: 'Coming Soon'
+			tags: ['React', 'MaxCompute', 'Alibaba', BigQuery],
+			context: 'Mais detalhes em breve',
+			year: 'Em Breve'
 		}
 	];
 
