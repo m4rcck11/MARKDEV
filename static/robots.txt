@@ -32,6 +32,5 @@ Allow: /
 User-agent: Omgili
 Allow: /
 
-# Bloquear todos os outros bots (Google, Bing, etc.)
 User-agent: *
 Disallow: /

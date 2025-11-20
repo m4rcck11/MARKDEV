@@ -1,86 +1,76 @@
 <script>
 	import { onMount } from 'svelte';
+	import * as Gap from '$lib/components/gap';
 
 	let headlineElement;
-	let cards = [];
-	let toastElement;
 	let heroElement;
 	let showToast = false;
 	let toastMessage = '';
-
-	// Imagens em /static/images/
+	let hoveredProject = null;
 
 	const projects = [
 		{
-			image: '/images/teslacognos.png',
-			alt: 'Tesla Cognos',
 			title: 'Tesla Cognos',
-			description:
-				'Plataforma EAD completamente desenvolvida em Flutter com Supabase como BaaS. Gamificação e UX para maximizar estudos rápidos.',
-			tags: ['Flutter', 'BaaS', 'UI', 'UX']
+			description: 'Plataforma EAD em Flutter com Supabase. Gamificação e UX.',
+			tags: ['Flutter', 'BaaS', 'UI/UX'],
+			context: 'B2B',
+			year: '2024'
 		},
 		{
-			image: '/images/Insyspo2.png',
-			alt: 'Acoplamento de Autores - InSySpo',
-			title: 'Acoplamento de Autores — InSySpo',
-			description:
-				'Plataforma interna para consulta de autores em uma base de terabytes. Comunicação via Google Cloud CLI + Flutter + MySQL.',
-			tags: ['Flutter', 'Google Cloud', 'BigQuery', 'MySQL']
+			title: 'InSySpo — Acoplamento',
+			description: 'Consulta de autores em base de terabytes. Google Cloud + BigQuery.',
+			tags: ['Flutter', 'BigQuery', 'Cloud'],
+			context: 'Interno',
+			year: '2023'
 		},
 		{
-			image: '/images/altmetria.png',
-			alt: 'Projeto LibreMétricas - IBICT',
-			title: 'Projeto LibreMétricas — IBICT',
-			description:
-				'API para o IBICT com DuckDB, middleware e Docker. Extração e métricas científicas com pipelines otimizados.',
-			tags: ['Vue', 'Alibaba Cloud', 'ECS', 'NGINX', 'Python', 'FastAPI', 'DuckDB', 'Docker']
+			title: 'LibreMétricas',
+			description: 'API para métricas científicas. DuckDB, Docker e FastAPI.',
+			tags: ['Python', 'DuckDB', 'Docker'],
+			context: 'Gov',
+			year: '2023'
 		},
 		{
-			image: '/images/Dashboard _Joins_IBICT.png',
-			alt: 'Dashboard IBICT',
 			title: 'Dashboard IBICT',
-			description:
-				'Dashboard interna para consulta de pesquisadores do IBICT, conectada a fonte de dados no BigQuery.',
-			tags: ['Flutter', 'BigQuery', 'Data Warehouse', 'Parquet']
+			description: 'Visualização de dados de pesquisadores via BigQuery.',
+			tags: ['Flutter', 'Data Viz', 'Parquet'],
+			context: 'Gov',
+			year: '2023'
 		},
 		{
-			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
-			alt: 'MultiOBS',
 			title: 'MultiOBS',
-			description: 'Iniciativa de democratização de dados. Projeto ligado à Fapesp.',
-			tags: ['Coming Soon']
+			description: 'Iniciativa de democratização de dados ligada à Fapesp.',
+			tags: ['Data', 'Research'],
+			context: 'Research',
+			year: '2024'
 		},
 		{
-			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
-			alt: 'OpenAlex Portal',
 			title: 'OpenAlex Portal',
-			description:
-				'Portal de acesso a dados coletados em 5 anos de estudos com iniciativas científicas. Infraestrutura robusta para pesquisa e análise de dados acadêmicos.',
-			tags: ['Coming Soon', 'PostgreSQL', 'Alibaba Cloud', 'MaxCompute', 'ECS', 'Vue', 'Docker']
+			description: 'Portal de acesso a dados científicos globais.',
+			tags: ['Vue', 'PostgreSQL', 'Alibaba'],
+			context: 'Research',
+			year: 'Coming Soon'
 		}
 	];
 
 	const websites = [
 		{
 			image: '/images/teslaweb.png',
-			alt: 'Tesla Concursos — Website',
-			title: 'Tesla Concursos — Website',
-			description:
-				'Website institucional com foco em performance, SEO e componentes reutilizáveis. Integrações de pagamento e páginas personalizadas.'
+			alt: 'Tesla Concursos',
+			title: 'Tesla Concursos',
+			description: 'Website institucional focado em performance e SEO.'
 		},
 		{
 			image: '/images/Insyspo.png',
-			alt: 'InSySpo — Website',
-			title: 'InSySpo — Website',
-			description:
-				'Manutenção e desenvolvimento do website da Insyspo hospedado em servidores da Unicamp.'
+			alt: 'InSySpo',
+			title: 'InSySpo',
+			description: 'Manutenção e desenvolvimento hospedado na Unicamp.'
 		},
 		{
 			image: '/images/Desvendando a formação de fósseis.png',
-			alt: 'Desvendando a Formação de Fósseis — IG Unicamp',
-			title: 'Desvendando a Formação de Fósseis — IG Unicamp',
-			description:
-				'Plataforma EAD para curso de extensão. VM Google, Certbot e instalação do Moodle LiteSpeed via CLI.'
+			alt: 'Desvendando Fósseis',
+			title: 'IG Unicamp',
+			description: 'Plataforma EAD para curso de extensão.'
 		},
 		{
 			image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1400&auto=format&fit=crop',
@@ -123,7 +113,7 @@
 		const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		
 		if (prefersReduced) {
-			document.querySelectorAll('.card, .headline').forEach((el) => el.classList.add('inview'));
+			document.querySelectorAll('.headline, .website-card, .list-row').forEach((el) => el.classList.add('inview'));
 			return;
 		}
 
@@ -133,10 +123,10 @@
 					if (entry.isIntersecting) entry.target.classList.add('inview');
 				});
 			},
-			{ threshold: 0.15 }
+			{ threshold: 0.1 }
 		);
 
-		document.querySelectorAll('.card').forEach((el) => io.observe(el));
+		document.querySelectorAll('.website-card, .list-row').forEach((el) => io.observe(el));
 		if (headlineElement) io.observe(headlineElement);
 
 		if (heroElement) {
@@ -144,7 +134,6 @@
 			heroElement.addEventListener('mouseleave', handleHeroMouseLeave);
 		}
 
-		// Accessible focus styles for keyboard users
 		document.addEventListener('keyup', (e) => {
 			if (e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
 		});
@@ -185,14 +174,86 @@
 		<p class="sub">Desenvolvedor Full-stack de Campinas, São Paulo para o mundo.</p>
 	</section>
 
-	<section id="about" class="wrapper" style="padding-block: 4rem 4rem">
+	<section id="about" class="wrapper">
 		<h2 class="about-title">Sobre mim</h2>
 		<div class="about-content">
 			<p>Olá! Eu sou Marcelo, desenvolvedor e graduando em Análise e Desenvolvimento de Sistemas pelo SENAC. Eu arrecado mais de 4 anos de experiência com webdesign e desenvolvimento. Meus hobbies favoritos são encontrar soluções automatizadas para processos, criar MVPs que ninguém pediu e estudar arquitetura de sistemas. Sou fã de viajar, cyberpunk e rock paulera.</p>
 		</div>
 	</section>
 
-	<section id="contact" class="wrapper" style="padding-block: 4rem 4rem">
+	<Gap.Vertical size={140} />
+
+	<!-- SEÇÃO 1: ENGENHARIA (Lista Técnica) -->
+	<section id="engineering" class="wrapper">
+		<div class="section-header">
+			<h2 class="agency-title">Engenharia & Sistemas</h2>
+			<p class="section-subtitle">Soluções de alta complexidade, dashboards e arquitetura de dados.</p>
+		</div>
+
+		<Gap.Vertical size={60} />
+
+		<div class="tech-list">
+			<!-- Header da Tabela -->
+			<div class="list-row header">
+				<span class="col-1">Projeto</span>
+				<span class="col-2">Tecnologia</span>
+				<span class="col-3">Contexto</span>
+				<span class="col-4">Ano</span>
+			</div>
+
+			{#each projects as project}
+				<a href="#" class="list-row item">
+					<div class="col-1">
+						<span class="project-name">{project.title}</span>
+					</div>
+					<div class="col-2">
+						<span class="tech-tag">{project.tags[0]}</span>
+						{#if project.tags[1]}<span class="tech-tag secondary">+{project.tags.length - 1}</span>{/if}
+					</div>
+					<div class="col-3">
+						<span class="project-context">{project.context}</span>
+					</div>
+					<div class="col-4">
+						<span class="project-year">{project.year}</span>
+					</div>
+					<div class="hover-reveal">→</div>
+				</a>
+			{/each}
+		</div>
+	</section>
+
+
+	<Gap.Vertical size={180} />
+
+
+	<!-- SEÇÃO 2: WEBSITES (Visual) -->
+	<section id="websites" class="wrapper">
+		<div class="section-header">
+			<h2 class="agency-title">Web Design</h2>
+			<p class="section-subtitle">Experiências digitais focadas em performance e SEO.</p>
+		</div>
+
+		<Gap.Vertical size={80} />
+
+		<div class="website-grid">
+			{#each websites as site}
+				<article class="website-card">
+					<div class="image-container">
+						<img src={site.image} alt={site.alt} loading="lazy" />
+						<div class="overlay"></div>
+					</div>
+					<div class="website-info">
+						<h3>{site.title}</h3>
+						<p>{site.description}</p>
+					</div>
+				</article>
+			{/each}
+		</div>
+	</section>
+
+	<Gap.Vertical size={120} />
+
+	<section id="contact" class="wrapper">
 		<div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start">
 			<div>
 				<h2 class="contact-title" style="font-size: 68px; line-height: 1; margin: 0 0 1rem 0; font-weight: 700">
@@ -250,6 +311,8 @@
 			</form>
 		</div>
 	</section>
+	
+	<Gap.Vertical size={80} />
 </main>
 
 {#if showToast}
@@ -267,7 +330,6 @@
 		--accent2: #ffffff;
 		--container-max: 1100px;
 		--radius: 12px;
-		--gap: 1.25rem;
 		--serif: 'Editorial New', 'Georgia', 'Times New Roman', serif;
 		--sans: 'Editorial New', system-ui, -apple-system, 'Segoe UI', sans-serif;
 		--transition-fast: 220ms;
@@ -480,70 +542,166 @@
 		margin: 0;
 	}
 
-	/* Projects */
-	.projects {
+	/* --- AGENCY STYLES --- */
+
+	.agency-title {
+		font-family: var(--serif);
+		font-size: 2.5rem;
+		margin: 0;
+		font-weight: 400;
+	}
+
+	.section-subtitle {
+		color: var(--muted);
+		margin-top: 0.5rem;
+		font-family: var(--sans);
+		max-width: 500px;
+	}
+
+	/* Engineering List */
+	.tech-list {
+		border-top: 1px solid #000;
+	}
+
+	.list-row {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--gap);
-		margin-top: 2rem;
-	}
-
-	@media (min-width: 600px) {
-		.projects {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	.card {
-		background: #ffffff;
-		border: 1px solid rgba(0, 0, 0, 0.125);
-		border-radius: var(--radius);
-		padding: 1rem;
-		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-		transform: translateY(8px);
+		grid-template-columns: 2fr 1.5fr 1fr 1fr 40px;
+		padding: 1.5rem 0;
+		border-bottom: 1px solid #e5e5e5;
+		align-items: center;
+		text-decoration: none;
+		color: inherit;
+		position: relative;
+		transition: background 0.2s;
 		opacity: 0;
-		transition: transform var(--transition-mid) cubic-bezier(0.2, 0.9, 0.2, 1),
-			opacity var(--transition-mid), box-shadow var(--transition-mid);
+		transform: translateY(10px);
+		transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
 	}
 
-	:global(.card.inview) {
-		transform: none;
+	:global(.list-row.inview) {
 		opacity: 1;
+		transform: none;
 	}
 
-	.card:hover {
-		transform: translateY(-6px) scale(1.01);
-		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+	.list-row.header {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--muted);
+		padding: 0.75rem 0;
+		border-bottom: 1px solid #000;
+		opacity: 1;
+		transform: none;
 	}
 
-	.card img {
-		width: 100%;
-		border-radius: 8px;
-		display: block;
+	.list-row.item:hover {
+		background: #f4f4f4;
+		padding-left: 10px; 
 	}
 
-	.muted {
+	.project-name {
+		font-family: var(--serif);
+		font-size: 1.25rem;
+		font-weight: 400;
+	}
+
+	.tech-tag {
+		background: #eee;
+		padding: 2px 8px;
+		border-radius: 4px;
+		font-size: 0.8rem;
+		font-family: monospace;
+		margin-right: 4px;
+	}
+
+	.tech-tag.secondary {
+		background: transparent;
 		color: var(--muted);
 	}
 
-	/* Tags */
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-top: 0.75rem;
+	.hover-reveal {
+		opacity: 0;
+		transition: opacity 0.2s;
+		font-family: monospace;
 	}
 
-	.tag {
-		background: #f0f0f0;
-		color: var(--text);
-		padding: 0.25rem 0.75rem;
-		border-radius: 20px;
-		font-size: 0.75rem;
-		font-weight: 500;
-		letter-spacing: 0.02em;
-		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	.list-row.item:hover .hover-reveal {
+		opacity: 1;
 	}
+
+	/* Website Grid */
+	.website-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 4rem;
+	}
+
+	@media (min-width: 768px) {
+		.website-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem 4rem;
+		}
+		
+		.website-grid article:nth-child(even) {
+			transform: translateY(6rem);
+		}
+	}
+
+	.website-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+	}
+
+	:global(.website-card.inview) {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	
+	@media (min-width: 768px) {
+		:global(.website-card.inview:nth-child(even)) {
+			transform: translateY(6rem);
+		}
+	}
+
+	.image-container {
+		aspect-ratio: 16/10;
+		background: #f0f0f0;
+		overflow: hidden;
+		border-radius: 4px;
+		position: relative;
+	}
+
+	.image-container img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+		filter: grayscale(100%);
+	}
+
+	.website-card:hover .image-container img {
+		transform: scale(1.05);
+		filter: grayscale(0%);
+	}
+
+	.website-info h3 {
+		font-family: var(--serif);
+		font-size: 1.5rem;
+		margin: 0 0 0.5rem 0;
+		font-weight: 400;
+	}
+
+	.website-info p {
+		font-size: 0.95rem;
+		color: var(--muted);
+		line-height: 1.5;
+		margin: 0;
+	}
+
 
 	/* Contact form microfeedback */
 	.toast {
@@ -588,11 +746,12 @@
 		.contact-title {
 			font-size: 48px !important;
 		}
-	}
 
-	@media (min-width: 900px) {
-		.projects {
-			grid-template-columns: repeat(3, 1fr);
+		.list-row {
+			grid-template-columns: 1fr auto 40px; /* Simplificado para mobile */
+		}
+		.col-3, .col-4 {
+			display: none;
 		}
 	}
 
