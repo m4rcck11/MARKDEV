@@ -182,39 +182,13 @@
 		<h1 id="hero-title" bind:this={headlineElement} class="headline" style="font-style: normal; font-weight: 700">
 			Marcelo<span class="dot">.</span>
 		</h1>
-		<p class="sub">Desenvolvedor. Based in São Paulo — Available Worldwide.</p>
+		<p class="sub">Desenvolvedor Full-stack de Campinas, São Paulo para o mundo.</p>
 	</section>
 
-	<section id="work" class="wrapper" style="padding-block: 1.25rem 2.5rem">
-		<h2 style="margin: 0 0 1rem 0">Meu trabalho</h2>
-		<div class="projects" role="list">
-			{#each projects as project}
-				<article class="card" role="listitem">
-					<img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
-					<h3 style="margin: 0.5rem 0 0.25rem">{project.title}</h3>
-					<p class="muted">{project.description}</p>
-					{#if project.tags && project.tags.length > 0}
-						<div class="tags">
-							{#each project.tags as tag}
-								<span class="tag">{tag}</span>
-							{/each}
-						</div>
-					{/if}
-				</article>
-			{/each}
-		</div>
-	</section>
-
-	<section id="webdesign" class="wrapper" style="padding-block: 1.25rem 2.5rem">
-		<h2 style="margin: 0 0 1rem 0">Webdesign e Sites</h2>
-		<div class="projects" role="list">
-			{#each websites as site}
-				<article class="card" role="listitem">
-					<img src={site.image} alt={site.alt} loading="lazy" decoding="async" />
-					<h3 style="margin: 0.5rem 0 0.25rem">{site.title}</h3>
-					<p class="muted">{site.description}</p>
-				</article>
-			{/each}
+	<section id="about" class="wrapper" style="padding-block: 4rem 4rem">
+		<h2 class="about-title">Sobre mim</h2>
+		<div class="about-content">
+			<p>Olá! Eu sou Marcelo, desenvolvedor e graduando em Análise e Desenvolvimento de Sistemas pelo SENAC. Eu arrecado mais de 4 anos de experiência com webdesign e desenvolvimento. Meus hobbies favoritos são encontrar soluções automatizadas para processos, criar MVPs que ninguém pediu e estudar arquitetura de sistemas. Sou fã de viajar, cyberpunk e rock paulera.</p>
 		</div>
 	</section>
 
@@ -357,8 +331,8 @@
 	/* Vertical stacked menu */
 	.side-menu {
 		position: absolute;
-		top: 1rem;
-		right: 1rem;
+		top: 12rem;
+		right: 12rem;
 		z-index: 9999;
 	}
 
@@ -373,7 +347,7 @@
 	}
 
 	.side-menu a {
-		font-size: 12px;
+		font-size: 16px;
 		font-weight: 300;
 		font-style: normal;
 		letter-spacing: -0.02em;
@@ -388,6 +362,8 @@
 
 	/* Hero single centered column */
 	.hero {
+		min-height: 100vh;
+		width: 100%;
 		padding: 8rem 1.25rem 8rem;
 		display: flex;
 		flex-direction: column;
@@ -414,19 +390,22 @@
 		left: 0.6rem;
 		font-weight: 300;
 		font-style: normal;
+		font-size: 12.5px;
 	}
 
 	.hero-label-right {
 		right: 0.6rem;
 		font-weight: 700;
 		font-style: normal;
+		font-size: 12.5px;
+		
 	}
 
 	.headline {
 		font-family: var(--serif);
 		font-weight: 700;
-		font-size: clamp(3rem, 12vw, 7.5rem);
-		line-height: 0.9;
+		font-size: clamp(20rem, 12vw, 7.5rem);
+		line-height: .9;
 		margin: 0;
 		letter-spacing: -0.02em;
 		opacity: 0;
@@ -468,6 +447,37 @@
 		color: var(--muted);
 		max-width: 60ch;
 		margin-top: 0.5rem;
+	}
+
+	.about-title {
+		font-size: clamp(1.75rem, 3vw, 2.5rem);
+		font-weight: 700;
+		margin: 0 0 2rem 0;
+		color: #1a1a1a;
+		position: relative;
+		padding-bottom: 0.75rem;
+	}
+
+	.about-title::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 60px;
+		height: 4px;
+		background: linear-gradient(90deg, #000000, #d3d3d3);
+		border-radius: 2px;
+	}
+
+	.about-content {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: #333;
+		max-width: 800px;
+	}
+
+	.about-content p {
+		margin: 0;
 	}
 
 	/* Projects */
