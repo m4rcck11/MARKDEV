@@ -47,7 +47,7 @@
 		{
 			title: 'OpenAlex Portal',
 			description: 'Portal de acesso a dados científicos globais.',
-			tags: ['React', 'MaxCompute', 'Alibaba', BigQuery],
+			tags: ['React', 'MaxCompute', 'Alibaba', 'BigQuery'],
 			context: 'Mais detalhes em breve',
 			year: 'Em Breve'
 		}
@@ -68,15 +68,15 @@
 		},
 		{
 			image: '/images/Desvendando a formação de fósseis.png',
-			alt: 'Desvendando Fósseis',
-			title: 'IG Unicamp',
+			alt: 'Desvendando a Formação de Fósseis',
+			title: 'Desvendando a Formação de Fósseis',
 			description: 'Plataforma EAD para curso de extensão.'
 		},
 		{
 			image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1400&auto=format&fit=crop',
 			alt: 'EMES Advogados',
 			title: 'EMES Advogados',
-			description: 'Coming Soon...'
+			description: 'Site corporativo para o escritório EMES Advogados.'
 		}
 	];
 
