@@ -8,13 +8,13 @@
   import Architecture from './Architecture.svelte';
   import CodeSnippets from './CodeSnippets.svelte';
   import Roadmap from './Roadmap.svelte';
-  
+
   export let caseData: CaseStudy;
 </script>
 
 <article class="case-study">
   <Hero title={caseData.title} />
-  
+
   <div class="container">
     <Tags tags={caseData.tags} />
     
@@ -66,7 +66,7 @@
       </div>
     </Section>
     
-    {#if caseData.images && caseData.images.length > 10}
+    {#if caseData.images && caseData.images.length > 0}
       <ImageGallery images={caseData.images} />
     {/if}
     
@@ -80,8 +80,19 @@
   .case-study {
     background: white;
     min-height: 100vh;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in forwards;
   }
-  
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
