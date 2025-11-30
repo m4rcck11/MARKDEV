@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CodeSnippet } from '$lib/cases';
+  import type { CodeSnippet } from '$lib/cases/index.js';
   import { onMount } from 'svelte';
   import hljs from 'highlight.js/lib/core';
   import javascript from 'highlight.js/lib/languages/javascript';

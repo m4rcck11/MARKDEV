@@ -157,6 +157,10 @@ graph TD
       content: `Registramos cada arquivo Parquet como view temporária (CREATE TEMP VIEW) e usamos DuckDB em read-only com PRAGMA de threads/memória. Isso permite executar agregações analíticas pesadas (joins entre works, sources, locations, authors) diretamente sobre os arquivos baixados, sem provisionar outro banco, mantendo leitura eficiente mesmo com dezenas de GB no disco.`
     },
     {
+      title: "Queries DuckDB estruturadas por engenheiro de dados",
+      content: `As queries SQL foram desenvolvidas por um engenheiro de dados especializado, seguindo padrões de segurança e performance. Todas utilizam parameter binding para prevenir SQL injection e retornam dados em formato colunar JSON otimizado para o frontend. O módulo implementa cache TTL via Cachetools para queries de agregação frequentes, reduzindo latência em consultas repetidas. As queries cobrem agregações por fonte, ano, periódico e campo de pesquisa, além de busca por DOI e exportação CSV com streaming para datasets grandes.`
+    },
+    {
       title: "API leve com FastAPI + cache local",
       content: `FastAPI entrega as rotas REST, Pydantic valida payloads e Cachetools TTLCache guarda resultados de queries críticas (300s). Quando o cache falha, \`_execute_query\` executa SQL parametrizado no DuckDB e transforma o resultado em JSON pronto para o Vue.`
     },
@@ -194,7 +198,7 @@ def _execute_query(conn, sql, params=()):
   ],
 
   lessonsLearned: `
-    Através deste projeto, aprofundei minha compreensão sobre a combinação DuckDB + Parquet para análise de dados, partindo da documentação para avaliar seus tradeoffs em cenários reais. O desenvolvimento me permitiu evoluir minhas habilidades em arquitetura de APIs REST, implementando componentes essenciais para escalabilidade como reverse proxies e rate limiting para gerenciar paralelismo de acesso. Além disso, aprimorei minha experiência com Docker, fortalecendo minha visão sobre portabilidade e containerização de sistemas backend.`,
+    Através deste projeto pude aprofundar meu entendimento sobre a combinação DuckDB + Parquet para análise de dados, partindo da documentação para avaliar seus tradeoffs em cenários reais. O desenvolvimento me permitiu evoluir minhas habilidades em arquitetura de APIs REST, implementando componentes essenciais para escalabilidade como reverse proxies e rate limiting para gerenciar paralelismo de acesso. Além disso, aprimorei minha experiência com Docker, fortalecendo minha visão sobre portabilidade e containerização de sistemas backend.`,
 
   metrics: [
     { value: "40M+", label: "Linhas altmétricas processadas nos Parquets" },
@@ -214,7 +218,9 @@ def _execute_query(conn, sql, params=()):
   links: {
     github: "https://github.com/m4rcck11/plataforma-altmetria-backend",
     live: null
-  },roadmap: {
+  },
+
+  roadmap: {
     title: "Roadmap do Projeto LibreMétricas",
     items: [
       {
@@ -288,8 +294,7 @@ def _execute_query(conn, sql, params=()):
         description: "Integração com novas fontes altmétricas; enriquecimento de metadados; cobertura expandida América Latina",
         target: "Q1 2026",
         status: "planned"
-      },
-      
+      }
     ]
-}
+  }
 };

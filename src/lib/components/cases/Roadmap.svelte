@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CaseStudyRoadmap, RoadMapStatus } from '$lib/cases';
+  import type { CaseStudyRoadmap, RoadMapStatus } from '$lib/cases/index.js';
   
   export let roadmap: CaseStudyRoadmap;
   

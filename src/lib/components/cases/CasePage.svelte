@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { CaseStudy } from '$lib/cases';
+  import type { CaseStudy } from '$lib/cases/index.js';
   import Hero from './Hero.svelte';
   import Section from './Section.svelte';
   import Metrics from './Metrics.svelte';

@@ -1,12 +1,10 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
-	import * as Gap from '$lib/components/gap';
 
-	let headlineElement;
-	let heroElement;
+	let headlineElement: HTMLElement | null = null;
+	let heroElement: HTMLElement | null = null;
 	let showToast = false;
 	let toastMessage = '';
-	let hoveredProject = null;
 
 	const projects = [
 		{
@@ -80,13 +78,13 @@
 		}
 	];
 
-	function handleSubmit(e) {
+	function handleSubmit(e: Event) {
 		e.preventDefault();
 		showToastMessage('Opa, desculpa... não ainda. Se importa em copiar a mensagem e me mandar manualmente no google? e_e');
-		e.target.reset();
+		(e.target as HTMLFormElement).reset();
 	}
 
-	function showToastMessage(msg) {
+	function showToastMessage(msg: string) {
 		toastMessage = msg;
 		showToast = true;
 		const timer = setTimeout(() => {
@@ -95,7 +93,7 @@
 		return () => clearTimeout(timer);
 	}
 
-	function handleHeroMouseMove(e) {
+	function handleHeroMouseMove(e: MouseEvent) {
 		if (!heroElement) return;
 		const r = heroElement.getBoundingClientRect();
 		const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
@@ -181,7 +179,7 @@
 		</div>
 	</section>
 
-	<Gap.Vertical size={140} />
+	<div style="height: 140px;"></div>
 
 	<!-- SEÇÃO 1: ENGENHARIA (Lista Técnica) -->
 	<section id="engineering" class="wrapper">
@@ -190,7 +188,7 @@
 			<p class="section-subtitle">Soluções de alta complexidade, dashboards e arquitetura de dados.</p>
 		</div>
 
-		<Gap.Vertical size={60} />
+		<div style="height: 60px;"></div>
 
 		<div class="tech-list">
 			<!-- Header da Tabela -->
@@ -223,7 +221,7 @@
 	</section>
 
 
-	<Gap.Vertical size={180} />
+	<div style="height: 180px;"></div>
 
 
 	<!-- SEÇÃO 2: WEBSITES (Visual) -->
@@ -233,7 +231,7 @@
 			<p class="section-subtitle">Experiências digitais focadas em performance e SEO.</p>
 		</div>
 
-		<Gap.Vertical size={80} />
+		<div style="height: 80px;"></div>
 
 		<div class="website-grid">
 			{#each websites as site}
@@ -251,7 +249,7 @@
 		</div>
 	</section>
 
-	<Gap.Vertical size={120} />
+	<div style="height: 120px;"></div>
 
 	<section id="contact" class="wrapper">
 		<div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start">
@@ -311,8 +309,8 @@
 			</form>
 		</div>
 	</section>
-	
-	<Gap.Vertical size={80} />
+
+	<div style="height: 80px;"></div>
 </main>
 
 {#if showToast}

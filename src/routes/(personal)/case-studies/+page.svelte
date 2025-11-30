@@ -1,10 +1,8 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
-	let headlineElement;
-	let cards = [];
-	let toastElement;
-	let heroElement;
+	let headlineElement: HTMLElement | null = null;
+	let heroElement: HTMLElement | null = null;
 	let showToast = false;
 	let toastMessage = '';
 
@@ -46,93 +44,13 @@
 		}
 	];
 
-	const projects = [
-		{
-			image: '/images/teslacognos.png',
-			alt: 'Tesla Cognos',
-			title: 'Tesla Cognos',
-			description:
-				'Plataforma EAD completamente desenvolvida em Flutter com Supabase como BaaS. Gamificação e UX para maximizar estudos rápidos.',
-			tags: ['Flutter', 'BaaS', 'UI', 'UX']
-		},
-		{
-			image: '/images/Insyspo2.png',
-			alt: 'Acoplamento de Autores - InSySpo',
-			title: 'Acoplamento de Autores — InSySpo',
-			description:
-				'Plataforma interna para consulta de autores em uma base de terabytes. Comunicação via Google Cloud CLI + Flutter + MySQL.',
-			tags: ['Flutter', 'Google Cloud', 'BigQuery', 'MySQL']
-		},
-		{
-			image: '/images/altmetria.png',
-			alt: 'Projeto LibreMétricas - IBICT',
-			title: 'Projeto LibreMétricas — IBICT',
-			description:
-				'API para o IBICT com DuckDB, middleware e Docker. Extração e métricas científicas com pipelines otimizados.',
-			tags: ['Vue', 'Alibaba Cloud', 'ECS', 'NGINX', 'Python', 'FastAPI', 'DuckDB', 'Docker']
-		},
-		{
-			image: '/images/Dashboard _Joins_IBICT.png',
-			alt: 'Dashboard IBICT',
-			title: 'Dashboard IBICT',
-			description:
-				'Dashboard interna para consulta de pesquisadores do IBICT, conectada a fonte de dados no BigQuery.',
-			tags: ['Flutter', 'BigQuery', 'Data Warehouse', 'Parquet']
-		},
-		{
-			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
-			alt: 'MultiOBS',
-			title: 'MultiOBS',
-			description: 'Iniciativa de democratização de dados. Projeto ligado à Fapesp.',
-			tags: ['Coming Soon']
-		},
-		{
-			image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop',
-			alt: 'OpenAlex Portal',
-			title: 'OpenAlex Portal',
-			description:
-				'Portal de acesso a dados coletados em 5 anos de estudos com iniciativas científicas. Infraestrutura robusta para pesquisa e análise de dados acadêmicos.',
-			tags: ['Coming Soon', 'PostgreSQL', 'Alibaba Cloud', 'MaxCompute', 'ECS', 'Vue', 'Docker']
-		}
-	];
-
-	const websites = [
-		{
-			image: '/images/teslaweb.png',
-			alt: 'Tesla Concursos — Website',
-			title: 'Tesla Concursos — Website',
-			description:
-				'Website institucional com foco em performance, SEO e componentes reutilizáveis. Integrações de pagamento e páginas personalizadas.'
-		},
-		{
-			image: '/images/Insyspo.png',
-			alt: 'InSySpo — Website',
-			title: 'InSySpo — Website',
-			description:
-				'Manutenção e desenvolvimento do website da Insyspo hospedado em servidores da Unicamp.'
-		},
-		{
-			image: '/images/Desvendando a formação de fósseis.png',
-			alt: 'Desvendando a Formação de Fósseis — IG Unicamp',
-			title: 'Desvendando a Formação de Fósseis — IG Unicamp',
-			description:
-				'Plataforma EAD para curso de extensão. VM Google, Certbot e instalação do Moodle LiteSpeed via CLI.'
-		},
-		{
-			image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1400&auto=format&fit=crop',
-			alt: 'EMES Advogados',
-			title: 'EMES Advogados',
-			description: 'Coming Soon...'
-		}
-	];
-
-	function handleSubmit(e) {
+	function handleSubmit(e: Event) {
 		e.preventDefault();
 		showToastMessage('Opa, desculpa... não ainda. Se importa em copiar a mensagem e me mandar manualmente no google? e_e');
-		e.target.reset();
+		(e.target as HTMLFormElement).reset();
 	}
 
-	function showToastMessage(msg) {
+	function showToastMessage(msg: string) {
 		toastMessage = msg;
 		showToast = true;
 		const timer = setTimeout(() => {
@@ -141,7 +59,7 @@
 		return () => clearTimeout(timer);
 	}
 
-	function handleHeroMouseMove(e) {
+	function handleHeroMouseMove(e: MouseEvent) {
 		if (!heroElement) return;
 		const r = heroElement.getBoundingClientRect();
 		const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
@@ -509,33 +427,6 @@
 		}
 	}
 
-	.card {
-		background: #ffffff;
-		border: 1px solid rgba(0, 0, 0, 0.125);
-		border-radius: var(--radius);
-		padding: 1rem;
-		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-		transform: translateY(8px);
-		opacity: 0;
-		transition: transform var(--transition-mid) cubic-bezier(0.2, 0.9, 0.2, 1),
-			opacity var(--transition-mid), box-shadow var(--transition-mid);
-	}
-
-	:global(.card.inview) {
-		transform: none;
-		opacity: 1;
-	}
-
-	.card:hover {
-		transform: translateY(-6px) scale(1.01);
-		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-	}
-
-	.card img {
-		width: 100%;
-		border-radius: 8px;
-		display: block;
-	}
 
 	.muted {
 		color: var(--muted);

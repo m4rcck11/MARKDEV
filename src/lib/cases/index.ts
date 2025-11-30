@@ -10,4 +10,13 @@ export const getCaseById = (id: string): CaseStudy | undefined => {
 };
 
 export { libremetricas };
-export type { CaseStudy, ProjectSection, CodeSnippet, CaseStudyMetric, CaseStudyImage } from './libremetricas.js';
+export type {
+  CaseStudy,
+  ProjectSection,
+  CodeSnippet,
+  CaseStudyMetric,
+  CaseStudyImage,
+  CaseStudyRoadmap,
+  RoadMapStatus,
+  RoadmapItem
+} from './libremetricas.js';
